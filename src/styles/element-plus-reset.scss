@@ -1,0 +1,42 @@
+// styles/element/index.scss
+/* 只需要重写你需要的即可 */
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': green,
+    ),
+  ),
+  // $colors: map.deep-merge(
+  //   (
+  //     'white': #ffffff,
+  //     'black': #000000,
+  //     // 常规
+  //     'primary': (
+  //       'base': #268ecb,
+  //     ),
+  //     // 成功
+  //     'success': (
+  //       'base': #48b197,
+  //     ),
+  //     // 警告
+  //     'warning': (
+  //       'base': #e2a227,
+  //     ),
+  //     // 危险
+  //     'danger': (
+  //       'base': #ab543f,
+  //     ),
+  //     'error': (
+  //       'base': #ea5937,
+  //     ),
+  //     'info': (
+  //       'base': #3f6689,
+  //     ),
+  //   ),
+  //   $colors
+  // )
+)
+
+// 如果只是按需导入，则可以忽略以下内容。
+// 如果你想导入所有样式:
+// @use "element-plus/theme-chalk/src/index.scss" as *;

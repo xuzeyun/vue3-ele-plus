@@ -1,48 +1,31 @@
 <template>
-  <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-    <el-radio-button :label="false">expand</el-radio-button>
-    <el-radio-button :label="true">collapse</el-radio-button>
-  </el-radio-group> -->
   <div class="on-off">
     <i class="fas fa-outdent" @click="onOff(1)" v-show="!isCollapse"></i>
     <i class="fas fa-indent" @click="onOff(0)" v-show="isCollapse"></i>
   </div>
-  <el-menu active-text-color="#3b82f6" text-color="#abb4bc" background-color="#343a40" default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen" @close="handleClose">
-    <el-sub-menu index="1">
-      <template #title>
-        <el-icon><location /></el-icon>
-        <span>快速构建页面工具</span>
-      </template>
-      <el-menu-item index="1-1">规范表格快速生成</el-menu-item>
-      <el-menu-item index="1-2">规范表单快速生成</el-menu-item>
-    </el-sub-menu>
-    <el-sub-menu index="2">
-      <template #title>
-        <el-icon><location /></el-icon>
-        <span>示例页面</span>
-      </template>
-      <el-menu-item index="2-1">Three.js展示3D模型</el-menu-item>
-      <el-menu-item index="2-2">Echarts地球</el-menu-item>
-    </el-sub-menu>
-    <el-menu-item index="3" disabled>
-      <el-icon><document /></el-icon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon><setting /></el-icon>
-      <template #title>Navigator Four</template>
-    </el-menu-item>
+  <el-menu
+    active-text-color="#3b82f6"
+    default-active="1"
+    class="el-menu-vertical-demo"
+    :collapse="isCollapse"
+    @open="handleOpen"
+    @close="handleClose"
+  >
+    <MenuTree :routerList="routers"></MenuTree>
   </el-menu>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { Document, Menu as IconMenu, Location, Setting } from "@element-plus/icons-vue";
+import MenuTree from "./MenuTree.vue";
+import routers from "@/data/links";
 
-const isCollapse = ref(false);
+const isCollapse = ref(true);
+// 展开菜单
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
 };
+// 收起菜单
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
 };
@@ -53,14 +36,20 @@ const onOff = (flag: number) => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/variables.scss";
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
 }
+.el-menu {
+  border-right: none;
+  height: calc(100% - 31px);
+  overflow: auto;
+}
 .on-off {
   height: 30px;
   line-height: 30px;
-  border-top: #3d4348 1px solid;
+  border-top: $gBorderColor 1px solid;
   color: #4c5157;
   width: 100%;
   position: absolute;

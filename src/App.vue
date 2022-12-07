@@ -1,60 +1,83 @@
 <template>
-  <div id="app">
-    <div class="common-layout">
-      <el-container>
-        <el-header>Header</el-header>
+  <!-- 国际化 -->
+  <el-config-provider :locale="locale">
+    <div id="app">
+      <div class="common-layout">
         <el-container>
-          <el-aside>
-            <GlobelAside></GlobelAside>
-          </el-aside>
+          <!-- header -->
+          <el-header>
+            <GlobelHeader></GlobelHeader>
+          </el-header>
+          <!-- main-body -->
           <el-container>
-            <el-main>
-              <router-view />
-            </el-main>
-            <el-footer>
-              <GlobelFooter></GlobelFooter>
-            </el-footer>
+            <!-- aside -->
+            <el-aside>
+              <GlobelAside></GlobelAside>
+            </el-aside>
+            <el-container>
+              <!-- mian -->
+              <el-main>
+                <router-view />
+              </el-main>
+              <!-- footer -->
+              <!-- <el-footer>
+                <GlobelFooter></GlobelFooter>
+              </el-footer> -->
+            </el-container>
           </el-container>
         </el-container>
-      </el-container>
+      </div>
     </div>
-  </div>
+  </el-config-provider>
 </template>
 
 <script>
-import GlobelFooter from "@/layout/GlobleFooter";
+// ele plus 汉化
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import GlobelHeader from "@/layout/GlobleHeader";
+// import GlobelFooter from "@/layout/GlobleFooter";
 import GlobelAside from "@/layout/GlobleAside";
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   components: {
-    GlobelFooter,
+    GlobelHeader,
+    // GlobelFooter,
     GlobelAside,
   },
-}
+  setup() {
+    return {
+      // 汉化
+      locale: zhCn,
+    }
+  },
+})
+
+
 </script>
 
 <style lang="scss">
+@import "@/styles/variables.scss";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  // -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
-  // text-align: center;
   color: #2c3e50;
 }
-.el-header{
-  height: 60px;
-  background-color: fff;
-  box-shadow: 2px 0 5px rgba($color: #ddd, $alpha: 1.0);
+.el-header {
+  height: 66px !important;
+  line-height: 66px;
+  background: url(~@/assets/images/header_bg.png) no-repeat center top;
 }
-.el-aside{
+.el-aside {
   width: auto !important;
-  background-color: #000;
-  height: calc(100vh - 60px);
+  background-color: $gBodyBg;
+  border-right: 1px solid $gBorderColor;
+  height: calc(100vh - 66px);
   position: relative;
 }
-.el-main{
-  height: calc(100vh - 90px);
+.el-main {
+  height: calc(100vh - 66px);
 }
-.el-footer{
+.el-footer {
   height: 30px !important;
   background-color: antiquewhite;
 }

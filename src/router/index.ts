@@ -1,21 +1,29 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/Home.vue";
+import links from "@/data/links";
+
+// 循环方式引入路由
+const getRulesRouterData: any = [];
+const madeRouters = (links: any) => {
+  links.forEach((item: any, index: number) => {
+    getRulesRouterData.push({
+      path: item.path,
+      name: item.path,
+      component: () => import(/* webpackChunkName: "czgl" */ "@/views/" + item.component),
+    });
+    if (item.children) {
+      madeRouters(item.children);
+    }
+  });
+};
+madeRouters(links);
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "index",
+    redirect: "/home",
   },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
+  ...getRulesRouterData,
 ];
 
 const router = createRouter({

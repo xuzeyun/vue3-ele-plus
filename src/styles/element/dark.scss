@@ -1,0 +1,110 @@
+// 该文件用于对暗黑主题变量进行覆盖修改
+
+html.dark {
+  /* 自定义深色背景颜色 */
+  --el-bg-color: #0f1823;
+  --el-bg-color-overlay: #132030;
+  --el-fill-color-light: #02335c;
+
+  --el-color-primary: #1d6eb8;
+  --el-color-primary-light-3: #104e91;
+  --el-color-primary-light-5: #06346b;
+  --el-color-primary-light-7: #011d45;
+  --el-color-primary-light-8: #000c1f;
+  --el-color-primary-light-9: #000000;
+  --el-color-primary-dark-2: #64a4d1;
+
+  --el-color-success: #48b197;
+  --el-color-success-light-3: #328a77;
+  --el-color-success-light-5: #1f6357;
+  --el-color-success-light-7: #103d36;
+  --el-color-success-light-8: #061715;
+  --el-color-success-light-9: #000000;
+  --el-color-success-dark-2: #93c9b8;
+
+  --el-color-warning: #e2a227;
+  --el-color-warning-light-3: #bd7d17;
+  --el-color-warning-light-5: #965c0b;
+  --el-color-warning-light-7: #703f02;
+  --el-color-warning-light-8: #4a2701;
+  --el-color-warning-light-9: #000000;
+  --el-color-warning-dark-2: #fcd87c;
+
+  --el-color-danger: #ea5937;
+  --el-color-danger-light-3: #c43d25;
+  --el-color-danger-light-5: #9e2616;
+  --el-color-danger-light-7: #78140b;
+  --el-color-danger-light-8: #520a07;
+  --el-color-danger-light-9: #000000;
+  --el-color-danger-dark-2: #ffab8f;
+
+  --el-color-error: #ea5937;
+  --el-color-error-light-3: #c43d25;
+  --el-color-error-light-5: #9e2616;
+  --el-color-error-light-7: #78140b;
+  --el-color-error-light-8: #520a07;
+  --el-color-error-light-9: #000000;
+  --el-color-error-dark-2: #ffab8f;
+
+  --el-color-info: #3f6689;
+  --el-color-info-light-3: #294663;
+  --el-color-info-light-5: #16283d;
+  --el-color-info-light-7: #070e17;
+  --el-color-info-light-8: #000000;
+  --el-color-info-light-9: #000000;
+  --el-color-info-dark-2: #7f95a3;
+
+  
+  --el-border-color-darker: #1b4e7f;
+  --el-border-color-dark: #64a4d1;
+  // 表单 border
+  --el-border-color: #1b4e7f;
+  // 表单 input blur border
+  --el-border-color-light: #1b4e7f;
+  // 表格 border
+  --el-border-color-lighter: #1b4e7f;
+
+  --el-border-color-extra-light: #1b4e7f;
+
+  --el-border-color-hover: #64a4d1;
+
+  // table
+  // --el-table-header-bg-color: red;
+}
+
+
+
+// --el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.36),0px 8px 20px rgba(0, 0, 0, 0.72);
+// --el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.72);
+// --el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.72);
+// --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.72),0px 12px 32px #000000,0px 8px 16px -8px #000000;
+// --el-bg-color-page: #0a0a0a;
+// --el-text-color-primary: #E5EAF3;
+// --el-text-color-regular: #CFD3DC;
+// --el-text-color-secondary: #A3A6AD;
+// --el-text-color-placeholder: #8D9095;
+// --el-text-color-disabled: #6C6E72;
+
+// --el-fill-color-darker: #424243;
+// --el-fill-color-dark: #39393A;
+// --el-fill-color: #303030;
+// --el-fill-color-light: #262727;
+// --el-fill-color-lighter: #1D1D1D;
+// --el-fill-color-extra-light: #191919;
+// --el-fill-color-blank: transparent;
+// --el-mask-color: rgba(0, 0, 0, 0.8);
+// --el-mask-color-extra-light: rgba(0, 0, 0, 0.3);
+
+// --el-input-text-color: var(--el-text-color-regular);
+// --el-input-border: var(--el-border);
+// --el-input-hover-border: var(--el-border-color-hover);
+// --el-input-focus-border: var(--el-color-primary);
+// --el-input-transparent-border: 0 0 0 1px transparent inset;
+// --el-input-border-color: var(--el-border-color);
+// --el-input-border-radius: var(--el-border-radius-base);
+// --el-input-bg-color: var(--el-fill-color-blank);
+// --el-input-icon-color: var(--el-text-color-placeholder);
+// --el-input-placeholder-color: var(--el-text-color-placeholder);
+// --el-input-hover-border-color: var(--el-border-color-hover);
+// --el-input-clear-hover-color: var(--el-text-color-secondary);
+// --el-input-focus-border-color: var(--el-color-primary);
