@@ -18,7 +18,8 @@
       <a class="router-btn" href="javascript:;">开始作业</a>
     </el-col>
     <el-col :span="6">
-      <h1>QWQ销毁作业平台</h1>
+      <!-- <h1>QWQ销毁作业平台</h1> -->
+      <div ref="logo" style="height: 66px"></div>
     </el-col>
     <el-col :span="3" align="right">
       <a class="router-btn" href="javascript:;">作业结算</a>
@@ -26,16 +27,74 @@
     <el-col :span="6" align="right">
       <span class="warning-card"><i class="fas fa-exclamation-triangle animate__animated animate__flash animate__infinite"></i>作业警戒中</span>
       <div class="date-time">
-        <span class="time">{{headerTime.time}}</span><br />
-        <span class="date">[ {{headerTime.date}} ]</span>
+        <span class="time">{{ headerTime.time }}</span
+        ><br />
+        <span class="date">[ {{ headerTime.date }} ]</span>
       </div>
     </el-col>
   </el-row>
 </template>
 
 <script lang="ts" setup>
-import moment from 'moment';
-import { ref, reactive, onMounted } from "vue";
+import * as echarts from "echarts";
+import moment from "moment";
+import { ref, reactive, onMounted, Ref } from "vue";
+
+const logo: Ref<HTMLElement | any> = ref(null);
+
+var option = {
+  graphic: {
+    elements: [
+      {
+        type: "text",
+        left: "center",
+        top: "center",
+        style: {
+          text: "QWQ销毁作业平台",
+          fontSize: 34,
+          fontWeight: "bold",
+          lineDash: [0, 200],
+          lineDashOffset: 0,
+          fill: "transparent",
+          stroke: "#fff",
+          lineWidth: 1,
+        },
+        keyframeAnimation: {
+          duration: 3000,
+          loop: false,
+          keyframes: [
+            {
+              percent: 0.7,
+              style: {
+                fill: "transparent",
+                lineDashOffset: 200,
+                lineDash: [200, 0],
+              },
+            },
+            {
+              // Stop for a while.
+              percent: 0.8,
+              style: {
+                fill: "transparent",
+              },
+            },
+            {
+              percent: 1,
+              style: {
+                fill: "#fff",
+              },
+            },
+          ],
+        },
+      },
+    ],
+  },
+};
+
+onMounted(() => {
+  var myChart = echarts.init(logo.value);
+  option && myChart.setOption(option);
+});
 
 const headerTime = ref({
   date: "0000-00-00",
@@ -48,8 +107,8 @@ onMounted(() => {
 
 const getCurTime = () => {
   setInterval(() => {
-    headerTime.value.date = moment().format('YYYY-MM-DD');;
-    headerTime.value.time = moment().format('hh:mm:ss');;
+    headerTime.value.date = moment().format("YYYY-MM-DD");
+    headerTime.value.time = moment().format("HH:mm:ss");
   }, 500);
 };
 </script>

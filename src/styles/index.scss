@@ -3,41 +3,73 @@
 @import "@/styles/element/index.scss";
 @font-face {
   font-family: timeFont;
-  src: url(~@/assets/fonts/time.ttf);
+  src: url(~@/assets/fonts/digital-7mono.ttf);
 }
 
-*{
+* {
   font-size: 14px;
 }
-html, body{
+html,
+body {
   background-color: $gBodyBg;
 }
-body, dd, dl, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, ol, p, select, td, textarea, th, ul {
+body,
+dd,
+dl,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+legend,
+ol,
+p,
+select,
+td,
+textarea,
+th,
+ul {
   margin: 0;
   padding: 0;
   color: $gColor;
 }
-h1, h2, h3, h4, h5{
+h1,
+h2,
+h3,
+h4,
+h5 {
   margin: 0;
 }
-span, a, label, div{
+span,
+a,
+label,
+div {
   color: $gColor;
 }
-a{
+a {
   text-decoration: none;
 }
-.hide, .none {
-  display: none
+.hide,
+.none {
+  display: none;
 }
 .clearfix:after {
   visibility: hidden;
   clear: both;
   display: block;
   content: ".";
-  height: 0
+  height: 0;
 }
 .clearfix {
-  *zoom: 1
+  *zoom: 1;
+}
+ul,
+ol {
+  list-style: none;
 }
 
 // 滚动条美化样式
@@ -58,18 +90,18 @@ a{
 }
 
 // 纵向排列布局
-.g-flex-col{
+.g-flex-col {
   display: flex;
   flex-direction: column;
   gap: 15px;
   height: 100%;
 }
 // 查询区域
-.g-query{
+.g-query {
   border: $gBorderColor 1px solid;
   background-color: $gBodyBg2;
-  padding: 10px 20px;
-  h3{
+  padding: 10px 20px 3px;
+  h3 {
     position: absolute;
     margin-top: -18px;
     padding: 0 10px;
@@ -78,46 +110,45 @@ a{
     font-weight: normal;
     letter-spacing: 1px;
   }
-  .el-form{
-    .el-form-item{
-      margin-bottom: 0px;
+  .el-form {
+    .el-form-item {
+      margin-bottom: 6px;
     }
-    .el-form-item:last-child{
+    .el-form-item:last-child {
       margin-right: 0;
     }
   }
-  .g-query-btns{
+  .g-query-btns {
     float: right;
     margin-right: 0px;
   }
 }
 // 带标题查询区域
-.g-query-has-title{
+.g-query-has-title {
   background: none;
 }
 // 按钮组区域
-.g-btns{
-  
+.g-btns {
 }
 // 表格加分页区域
-.g-table{
+.g-table {
   flex: 1;
   overflow: auto;
-  .g-table-self{
-    height: calc(100% - 36px)
+  .g-table-self {
+    height: calc(100% - 36px);
   }
   .el-table {
     height: 100%;
   }
-  .g-table-pafer{
-    margin-top: 8px;
-    .el-pagination{
+  .g-table-pafer {
+    margin-top: 12px;
+    .el-pagination {
       justify-content: right;
     }
   }
 }
 
-.g-dialog-md{
+.g-dialog-md {
   display: flex;
   flex-direction: column;
   gap: 20px;

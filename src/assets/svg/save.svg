@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>@3x保存</title>
+    <g id="保存" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组" transform="translate(1.000000, 1.000000)">
+            <rect id="矩形" stroke="#ffffff" x="0.5" y="0.5" width="13" height="13" rx="2"></rect>
+            <path d="M11,0 L11,4.16666667 C11,4.62690396 10.4030463,5 9.66666667,5 L4.33333333,5 C3.59695367,5 3,4.62690396 3,4.16666667 L3,0" id="路径" stroke="#ffffff"></path>
+            <rect id="矩形" fill="#ffffff" x="8" y="2" width="1" height="2" rx="0.5"></rect>
+        </g>
+    </g>
+</svg>

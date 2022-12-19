@@ -26,7 +26,13 @@ import "animate.css";
 // self styles
 import "./styles/index.scss";
 
+// my icons
+import SvgIcon from '@/components/SvgIcon/index.vue'// svg component
+import '@/icons' // icon
+
 const app = createApp(App);
+app.component('svg-icon', SvgIcon);
+
 // 注册 ele icons
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);

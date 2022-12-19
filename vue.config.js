@@ -2,14 +2,14 @@
 const path = require("path");
 
 module.exports = {
-  publicPath: "./",
+  publicPath: "/",
   devServer: {
     port: 8080, // 端口号
     open: true, // 启动后自动打开页面
     proxy: {
       "/api": {
-        target: "http://192.168.0.103:3000", // 后端地址
-        pathRewrite: { "/api": "" },
+        target: "http://192.168.1.123:8082", // 后端地址
+        pathRewrite: { "^/api": "/api" },
         secure: false,
       },
     },

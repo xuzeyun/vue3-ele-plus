@@ -68,7 +68,7 @@
           <el-option label="南京" value="shanghai" />
           <el-option label="长治" value="beijing" />
         </el-select>
-        <el-button type="primary" :icon="Switch" @click="addHandle">执行数据转换归集</el-button>
+        <el-button type="primary" :icon="Switch" @click="onSubmit">执行数据转换归集</el-button>
       </div>
     </div>
     <div class="g-table">
@@ -111,7 +111,9 @@
 <script lang="ts" setup>
 import { Edit, CirclePlus, Download, Search, Refresh, Switch } from "@element-plus/icons-vue";
 import { ElTable } from 'element-plus'
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
+import { queryCzlxglListPage } from "@/api/jsqdgcgl";
+
 
 // ================== 表格查询 ==================
 const formInline = reactive({
@@ -127,11 +129,22 @@ const formInline = reactive({
 // 查询
 const onSubmit = () => {
   console.log("submit!");
+  getList();
 };
 // 重置
 const onReset = () => {
   console.log("click");
 };
+
+const getList = () => {
+  queryCzlxglListPage({}).then((res) => {
+    tableData.value = res.result.records;
+  });
+};
+
+onMounted(() => {
+  getList();
+})
 
 // ================== 按钮组 ==================
 // 新增
@@ -152,17 +165,18 @@ const handleSelectionChange = (val: any) => {
   multipleSelection.value = val;
 };
 // 表格数据
-const tableData = [
-  { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
-  { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
-  { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
-  { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
-  { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
-  { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
-  { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
-  { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
-  { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
-];
+// const tableData = [
+//   { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
+//   { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
+//   { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
+//   { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
+//   { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
+//   { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
+//   { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
+//   { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
+//   { jz: "计划名称a", yjdw: "122", pq: "222", sf: "33", cs: "44", mc: "33", czfl: "444", sl: "444" },
+// ];
+let tableData = ref([]);
 
 // ================== 分页 ==================
 const pager = reactive({
