@@ -6,6 +6,7 @@
   src: url(~@/assets/fonts/digital-7mono.ttf);
 }
 
+// ================== 基本初始化样式代码 ==================
 * {
   font-size: 14px;
 }
@@ -72,7 +73,7 @@ ol {
   list-style: none;
 }
 
-// 滚动条美化样式
+// ================== 滚动条美化样式 ==================
 ::-webkit-scrollbar {
   /*滚动条宽*/
   width: 4px;
@@ -89,6 +90,7 @@ ol {
   border-radius: 10px;
 }
 
+// ================== 项目 全局样式 ==================
 // 纵向排列布局
 .g-flex-col {
   display: flex;
@@ -147,9 +149,68 @@ ol {
     }
   }
 }
-
+// 弹窗 定义flex布局和元素间距
 .g-dialog-md {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+// 四角装饰模块
+.g-box-orn{
+  position: relative;
+  .g-orn1, .g-orn2, .g-orn3, .g-orn4{
+    position: absolute;
+    display: block;
+    width: 6px;
+    height: 6px;
+  }
+  .g-orn1{
+    left: 0;
+    top: 0;
+    border-left: #6593be 1px solid;
+    border-top: #6593be 1px solid;
+  }
+  .g-orn2{
+    left: 0;
+    bottom: 0;
+    border-left: #6593be 1px solid;
+    border-bottom: #6593be 1px solid;
+  }
+  .g-orn3{
+    bottom: 0;
+    right: 0;
+    border-bottom: #6593be 1px solid;
+    border-right: #6593be 1px solid;
+  }
+  .g-orn4{
+    top: 0;
+    right: 0;
+    border-right: #6593be 1px solid;
+    border-top: #6593be 1px solid;
+  }
+}
+// 四角装饰模块红色
+.g-box-orn-err{
+  .g-orn1{
+    border-left: #ea8b37 1px solid;
+    border-top: #ea8b37 1px solid;
+  }
+  .g-orn2{
+    border-left: #ea8b37 1px solid;
+    border-bottom: #ea8b37 1px solid;
+  }
+  .g-orn3{
+    border-bottom: #ea8b37 1px solid;
+    border-right: #ea8b37 1px solid;
+  }
+  .g-orn4{
+    border-right: #ea8b37 1px solid;
+    border-top: #ea8b37 1px solid;
+  }
+}
+
+.g-button-svg{
+  display: flex;
+  margin-right: 5px;
 }

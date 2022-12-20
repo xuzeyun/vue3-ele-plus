@@ -77,6 +77,7 @@ import AddDialog from "./AddDialog.vue";
 const addDialogShow = ref(false);
 const addDialogClose = () => {
   addDialogShow.value = false;
+  getList();
 };
 
 const curRow = ref({});
@@ -99,7 +100,7 @@ const onReset = () => {
 };
 
 const getList = () => {
-  queryScjhglListPage({}).then((res) => {
+  queryScjhglListPage({}).then((res: any) => {
     tableData.value = res.result.records;
   });
 };
@@ -134,7 +135,7 @@ const deleteHandle = (row: any) => {
     type: "warning",
   })
     .then(() => {
-      deleteScjhgl({ id: row.id }).then((res) => {
+      deleteScjhgl({ id: row.id }).then((res: any) => {
         if (res.code === 200) {
           ElMessage.success(res.msg);
           getList();
@@ -156,16 +157,6 @@ const handleSelectionChange = (val: any) => {
   multipleSelection.value = val;
 };
 // 表格数据
-// const tableData = [
-//   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
-//   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
-//   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
-//   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
-//   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
-//   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
-//   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
-//   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
-// ];
 let tableData = ref([]);
 
 // ================== 分页 ==================

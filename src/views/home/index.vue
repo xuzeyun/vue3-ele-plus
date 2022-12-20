@@ -78,18 +78,28 @@
       <div class="area area-d">
         <div class="chart-left">
           <div class="bar">
-            <span class="title">今日目标：</span><span class="big-test">{{ addNumber(2000) }}把</span>
+            <span class="title">今日目标：</span>
+            <span class="big-test">{{ addNumber(2000) }}把</span>
           </div>
-          <div class="bar"><span class="title">已完成：</span><span class="big-test">1600把</span></div>
-          <div class="bar"><span class="title">当前速率：</span><span>4把/分</span></div>
-          <div class="bar"><span class="title">距今日完成还需：</span><span>3小时25分钟</span></div>
+          <div class="bar">
+            <span class="title">已完成：</span>
+            <span class="big-test">1600把</span>
+          </div>
+          <div class="bar">
+            <span class="title">当前速率：</span>
+            <span>4把/分</span>
+          </div>
+          <div class="bar">
+            <span class="title">距今日完成还需：</span>
+            <span>3小时25分钟</span>
+          </div>
         </div>
         <div class="chart-center">
           <div class="yuan">
             <div class="orn orn1"></div>
             <div class="orn orn2"></div>
             <div class="orn orn3"></div>
-            <el-progress type="circle" :percentage="chartValue" stroke-width="6" width="80" indeterminate>
+            <el-progress type="circle" :percentage="chartValue" stroke-linecap="butt" stroke-width="6" width="80" indeterminate>
               <template #default="{ percentage }">
                 <span class="percentage-value">{{ percentage }}%</span>
                 <span class="percentage-label">完成百分比</span>
@@ -104,8 +114,14 @@
               >1000KG<el-icon><Edit /></el-icon
             ></span>
           </div>
-          <div class="bar"><span class="title">已使用：</span><span class="big-test">600KG</span></div>
-          <div class="bar"><span class="title">剩余容量：</span><span class="big-test">400KG</span></div>
+          <div class="bar">
+            <span class="title">已使用：</span>
+            <span class="big-test">600KG</span>
+          </div>
+          <div class="bar">
+            <span class="title">剩余容量：</span>
+            <span class="big-test">400KG</span>
+          </div>
           <div class="bar" style="text-align: center">
             <a class="rlfw-btn" href="javaScript:;">容量复位</a>
           </div>
@@ -119,35 +135,55 @@
         <ul>
           <li class="wran">
             <em></em>
-            <div class="clearfix"><b>2022-11-04 16:25:05</b><span class="span-primary">查看详情</span><span class="span-error">解除报警</span></div>
+            <div class="clearfix">
+              <b>2022-11-04 16:25:05</b>
+              <span class="span-primary">查看详情</span>
+              <span class="span-error">解除报警</span>
+            </div>
             <div>
               <p>当前袋容量已经超过最大容量，请及时更换残渣袋。</p>
             </div>
           </li>
           <li>
             <em></em>
-            <div class="clearfix"><b>2022-11-04 16:25:05</b><span class="span-primary">查看详情</span><span class="span-success">已解除</span></div>
+            <div class="clearfix">
+              <b>2022-11-04 16:25:05</b>
+              <span class="span-primary">查看详情</span>
+              <span class="span-success">已解除</span>
+            </div>
             <div>
               <p>当前袋容量已经超过最大容量，请及时更换残渣袋。</p>
             </div>
           </li>
           <li>
             <em></em>
-            <div class="clearfix"><b>2022-11-04 16:25:05</b><span class="span-primary">查看详情</span><span class="span-success">已解除</span></div>
+            <div class="clearfix">
+              <b>2022-11-04 16:25:05</b>
+              <span class="span-primary">查看详情</span>
+              <span class="span-success">已解除</span>
+            </div>
             <div>
               <p>当前袋容量已经超过最大容量，请及时更换残渣袋。</p>
             </div>
           </li>
           <li>
             <em></em>
-            <div class="clearfix"><b>2022-11-04 16:25:05</b><span class="span-primary">查看详情</span><span class="span-success">已解除</span></div>
+            <div class="clearfix">
+              <b>2022-11-04 16:25:05</b>
+              <span class="span-primary">查看详情</span>
+              <span class="span-success">已解除</span>
+            </div>
             <div>
               <p>当前袋容量已经超过最大容量，请及时更换残渣袋。</p>
             </div>
           </li>
           <li>
             <em></em>
-            <div class="clearfix"><b>2022-11-04 16:25:05</b><span class="span-primary">查看详情</span><span class="span-success">已解除</span></div>
+            <div class="clearfix">
+              <b>2022-11-04 16:25:05</b>
+              <span class="span-primary">查看详情</span>
+              <span class="span-success">已解除</span>
+            </div>
             <div>
               <p>当前袋容量已经超过最大容量，请及时更换残渣袋。</p>
             </div>
@@ -156,8 +192,58 @@
       </div>
       <div class="area area-g">
         <h3>点位总进度</h3>
-        <div>
-          <div ref="sbt" style="height: 200px"></div>
+        <div class="box">
+          <div class="box-top">
+            <div class="box-left">
+              <div class="box-left-a g-box-orn">
+                <i class="g-orn1"></i>
+                <i class="g-orn2"></i>
+                <i class="g-orn3"></i>
+                <i class="g-orn4"></i>
+                <dl>
+                  <dt>总目标</dt>
+                  <dd><b>3000</b>把</dd>
+                </dl>
+              </div>
+              <div class="box-left-b g-box-orn g-box-orn-err">
+                <i class="g-orn1"></i>
+                <i class="g-orn2"></i>
+                <i class="g-orn3"></i>
+                <i class="g-orn4"></i>
+                <dl>
+                  <dt class="err">已完成</dt>
+                  <dd><b>1200</b>把</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="box-right g-box-orn">
+              <i class="g-orn1"></i>
+              <i class="g-orn2"></i>
+              <i class="g-orn3"></i>
+              <i class="g-orn4"></i>
+              <div ref="sbt" style="height: 100%"></div>
+            </div>
+          </div>
+          <div class="box-bottom">
+            <div class="box-bottom-a">
+              <dl>
+                <dt>计划天数</dt>
+                <dd><b>10</b>天</dd>
+              </dl>
+            </div>
+            <div class="box-bottom-b">
+              <dl>
+                <dt>已进行</dt>
+                <dd><b>3</b>天</dd>
+              </dl>
+            </div>
+            <div class="box-bottom-c">
+              <dl>
+                <dt>剩余</dt>
+                <dd><b>7</b>天</dd>
+              </dl>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -165,7 +251,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref, onMounted, Ref } from "vue";
+import { ref, onMounted, Ref } from "vue";
 import * as echarts from "echarts";
 import { FullScreen } from "@element-plus/icons-vue";
 import "echarts-liquidfill";
@@ -183,6 +269,7 @@ var option = {
     {
       type: "liquidFill",
       name: "liquid Fill",
+      radius: "80%",
       data: [
         {
           name: "完成率",
@@ -190,11 +277,21 @@ var option = {
         },
         0.5,
       ],
+      outline: {
+        // show: false,
+        borderDistance: 0,
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: "#156ACF",
+          shadowBlur: 20,
+          shadowColor: "rgba(255, 0, 0, 1)",
+        },
+      },
       label: {
         formatter: function (param: any) {
-          return param.value + "\n" + param.name;
+          return param.value * 100 + "%\n" + param.name;
         },
-        fontSize: 16,
+        fontSize: 18,
       },
     },
   ],
@@ -249,7 +346,6 @@ const addNumber = (val: number, time = 1000) => {
         font-size: 18px;
         padding-left: 34px;
         border-bottom: $gBorderColor 1px solid;
-        // background: url(~@/assets/images/home_title_orn.png) no-repeat 9px center;
         background: url(~@/assets/images/home_tit_icon.png) no-repeat 9px center, linear-gradient(-90deg, #0f1823, #0d3152);
         background-size: 4%, auto;
         position: relative;
@@ -320,7 +416,7 @@ const addNumber = (val: number, time = 1000) => {
           }
           span {
             float: right;
-            display: inline-block;
+            display: block;
             padding: 1px 4px;
             border-radius: 4px;
             line-height: 16px;
@@ -450,7 +546,7 @@ const addNumber = (val: number, time = 1000) => {
             height: 130px;
             background: url(~@/assets/images/orn.png) no-repeat center;
             background-size: 100% 100%;
-            animation: animal 3s infinite linear;
+            animation: rotateA 3s infinite linear;
             transform-origin: center center;
           }
           .orn3 {
@@ -458,8 +554,76 @@ const addNumber = (val: number, time = 1000) => {
             height: 116px;
             background: url(~@/assets/images/orn2.png) no-repeat center;
             background-size: 100% 100%;
-            animation: animal2 5s infinite linear;
+            animation: rotateB 5s infinite linear;
             transform-origin: center center;
+          }
+        }
+      }
+    }
+    .area-g {
+      .box {
+        height: calc(100% - 38px);
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        box-sizing: border-box;
+        gap: 8px;
+        dl {
+          dt {
+            color: $gTitleColor;
+            font-size: 12px;
+          }
+          dt.err{
+            color: #ea8b37;
+          }
+          dd {
+            font-size: 12px;
+            b {
+              font-size: 20px;
+              margin-right: 2px;
+              font-family: "DIN Alternate";
+            }
+          }
+        }
+        .box-top {
+          flex: 2;
+          display: flex;
+          gap: 8px;
+          .box-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            .box-left-a,
+            .box-left-b {
+              flex: 1;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+            }
+            .box-left-a {
+              background-color: #121f2f;
+            }
+            .box-left-b {
+              background-color: #252425;
+            }
+          }
+          .box-right {
+            flex: 2;
+          }
+        }
+        .box-bottom {
+          flex: 1;
+          display: flex;
+          .box-bottom-a,
+          .box-bottom-b,
+          .box-bottom-c {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
           }
         }
       }
@@ -474,7 +638,7 @@ const addNumber = (val: number, time = 1000) => {
     flex: 2;
   }
 }
-@-webkit-keyframes animal {
+@-webkit-keyframes rotateA {
   0% {
     transform: rotate(0deg);
     -ms-transform: rotate(0deg);
@@ -486,7 +650,7 @@ const addNumber = (val: number, time = 1000) => {
     -webkit-transform: rotate(-360deg);
   }
 }
-@-webkit-keyframes animal2 {
+@-webkit-keyframes rotateB {
   0% {
     transform: rotate(-360deg);
     -ms-transform: rotate(-360deg);

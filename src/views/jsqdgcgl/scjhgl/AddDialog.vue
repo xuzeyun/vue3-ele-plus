@@ -66,7 +66,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button type="primary" @click="saveHandle">
-          <span style="margin-right: 5px"><img src="@/assets/svg/save.svg" /></span>
+          <span class="g-button-svg"><img src="@/assets/svg/save.svg" /></span>
           保存</el-button
         >
         <el-button type="info" :icon="CircleClose" @click="close">取消</el-button>
@@ -109,13 +109,13 @@ onMounted(() => {
 const getUpdateInfo = () => {
   getScjhglDtoById({
     id: props.curRow.id,
-  }).then((res) => {
+  }).then((res: any) => {
     formInline.jhmc = res.result.jhmc;
     // formInline.sf = res.result.scsf;
     // formInline.cs = res.result.sccs.split(',');
     let arr = [];
     arr = res.result.scjhglmxList;
-    arr.forEach((item) => {
+    arr.forEach((item: any) => {
       item.cs = item.sccs;
       item.jhtlsj = item.jhtlsj.split('至');
     });
@@ -131,12 +131,12 @@ const close = () => {
 };
 
 const getSfData = () => {
-  getSfList({}).then((res) => {
+  getSfList({}).then((res: any) => {
     sfOptions.value = res.result || [];
   });
 };
 const getCsData = () => {
-  getCsList({}).then((res) => {
+  getCsList({}).then((res: any) => {
     csOptions.value = res.result || [];
   });
 };
@@ -148,8 +148,7 @@ const getScdwData = () => {
       cs: item,
     });
   });
-  queryJssjglNumByCity(data).then((res) => {
-    // console.log(scdqGridOptions);
+  queryJssjglNumByCity(data).then((res: any) => {
     scdqGridOptions.data = res.result || [];
   });
 };
@@ -259,25 +258,25 @@ const saveHandle = () => {
 
   // 数据合并
   let arr: any[] = [];
-  scdqGridOptions.data.forEach((item, index) => {
+  scdqGridOptions.data.forEach((item: any, index: number) => {
     arr.push({
       // public
-      scsf: scdqGridOptions.data[index].sf,
-      sccs: scdqGridOptions.data[index].cs,
+      scsf: (scdqGridOptions.data as any)[index].sf,
+      sccs: (scdqGridOptions.data as any)[index].cs,
       // table 1
-      dq: scdqGridOptions.data[index].dq,
-      cq: scdqGridOptions.data[index].cq,
-      gz: scdqGridOptions.data[index].gz,
-      lb: scdqGridOptions.data[index].lb,
+      dq: (scdqGridOptions.data as any)[index].dq,
+      cq: (scdqGridOptions.data as any)[index].cq,
+      gz: (scdqGridOptions.data as any)[index].gz,
+      lb: (scdqGridOptions.data as any)[index].lb,
       // table 2
-      ddsj: sjjhqGridOptions.data[index].ddsj,
-      gzdj: sjjhqGridOptions.data[index].gzdj,
-      sbys: sjjhqGridOptions.data[index].sbys,
-      tskz: sjjhqGridOptions.data[index].tskz,
-      czjssj: sjjhqGridOptions.data[index].czjssj,
-      sbsw: sjjhqGridOptions.data[index].sbsw,
-      jhtlsj: sjjhqGridOptions.data[index].jhtlsj.join("至"),
-      czsj: Number(sjjhqGridOptions.data[index].czsj),
+      ddsj: (sjjhqGridOptions.data as any)[index].ddsj,
+      gzdj: (sjjhqGridOptions.data as any)[index].gzdj,
+      sbys: (sjjhqGridOptions.data as any)[index].sbys,
+      tskz: (sjjhqGridOptions.data as any)[index].tskz,
+      czjssj: (sjjhqGridOptions.data as any)[index].czjssj,
+      sbsw: (sjjhqGridOptions.data as any)[index].sbsw,
+      jhtlsj: (sjjhqGridOptions.data as any)[index].jhtlsj.join("至"),
+      czsj: Number((sjjhqGridOptions.data as any)[index].czsj),
     });
   });
 
@@ -286,8 +285,7 @@ const saveHandle = () => {
     addScjhgl({
       jhmc: formInline.jhmc,
       scjhglmxVoList: arr,
-    }).then((res) => {
-      console.log(res);
+    }).then((res: any) => {
       if (res.code === 200) {
         ElMessage.success(res.msg);
         close();
@@ -301,8 +299,7 @@ const saveHandle = () => {
       id: props.curRow.id,
       jhmc: formInline.jhmc,
       scjhglmxVoList: arr,
-    }).then((res) => {
-      console.log(res);
+    }).then((res: any) => {
       if (res.code === 200) {
         ElMessage.success(res.msg);
         close();
