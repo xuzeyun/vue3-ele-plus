@@ -1,18 +1,18 @@
 <template>
-  <el-dialog v-model="dialogVisible" :title="(dialogType === 1 ? '新增' : '修改') + '收处计划'" width="90%" destroy-on-close draggable @close="close">
+  <el-dialog v-model="dialogVisible" :title="(dialogType === 1 ? '新增' : '修改') + '收处计划'" width="1200px" destroy-on-close draggable @close="close">
     <div class="g-dialog-md">
       <div class="g-box">
         <h3><em></em><span>收处地区</span></h3>
-        <el-form :inline="true" :model="formInline" class="demo-form-inline" :disabled="dialogType === 2">
-          <el-form-item label="计划名称">
+        <el-form :inline="true" :model="formInline" ref="ruleFormRef" class="demo-form-inline" :disabled="dialogType === 2" :rules="formInlineRules">
+          <el-form-item label="计划名称" prop="jhmc">
             <el-input v-model="formInline.jhmc" placeholder="请选择"></el-input>
           </el-form-item>
-          <el-form-item label="省份">
+          <el-form-item label="省份" prop="sf">
             <el-select v-model="formInline.sf" placeholder="请选择" @change="sfChange" filterable>
               <el-option v-for="item in sfOptions" :key="item.name" :label="item.name" :value="item.name" />
             </el-select>
           </el-form-item>
-          <el-form-item label="城市">
+          <el-form-item label="城市" prop="cs">
             <el-select v-model="formInline.cs" placeholder="请选择" @change="csChange" filterable multiple collapse-tags collapse-tags-tooltip>
               <el-option v-for="item in csOptions" :key="item.name" :label="item.name" :value="item.name" />
             </el-select>
@@ -65,7 +65,7 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button type="primary" @click="saveHandle">
+        <el-button type="primary" @click="submitForm(ruleFormRef)">
           <span class="g-button-svg"><img src="@/assets/svg/save.svg" /></span>
           保存</el-button
         >
@@ -79,6 +79,7 @@
 import { CircleCheck, CircleClose } from "@element-plus/icons-vue";
 import { reactive, ref, defineProps, defineExpose, onMounted, defineEmits } from "vue";
 import { ElMessage } from "element-plus";
+import type { FormInstance, FormRules } from 'element-plus'
 import Save from "@/assets/svg/save.svg";
 // 省份城市数据
 // import sfOptions from "@/utils/china_regions/province";
@@ -88,12 +89,14 @@ import { getSfList, getCsList } from "@/api/zone";
 import { addScjhgl, updateScjhgl, queryJssjglNumByCity, getScjhglDtoById } from "@/api/jsqdgcgl";
 import { forEach } from "lodash";
 import { arrayExpression } from "@babel/types";
+import { VXETable, VxeGridInstance, VxeGridListeners, VxeGridProps } from 'vxe-table'
+
 const props = defineProps<{
   dialogType: any;
   curRow: any;
 }>();
 
-let sfOptions = ref([]);
+
 let csOptionsAll = ref([]);
 
 onMounted(() => {
@@ -113,11 +116,16 @@ const getUpdateInfo = () => {
     formInline.jhmc = res.result.jhmc;
     // formInline.sf = res.result.scsf;
     // formInline.cs = res.result.sccs.split(',');
+    formInline.sf = res.result.scjhglmxList[0].scsf;
+
+
+    
     let arr = [];
     arr = res.result.scjhglmxList;
     arr.forEach((item: any) => {
       item.cs = item.sccs;
       item.jhtlsj = item.jhtlsj.split('至');
+      formInline.cs.push(item.sccs);
     });
     scdqGridOptions.data = arr;
     sjjhqGridOptions.data = arr;
@@ -154,12 +162,21 @@ const getScdwData = () => {
 };
 
 // =================== 表单 ===================
+// form
 const formInline = reactive({
   jhmc: "",
   sf: "",
   cs: [],
 });
-let csOptions: any = ref([]);
+// rules
+const formInlineRules = reactive<FormRules>({
+  jhmc: [{ required: true, message: '必填项', trigger: 'change' }],
+  sf: [{ required: true, message: '必填项', trigger: 'change' }],
+  cs: [{ required: true, message: '必填项', trigger: 'change' }],
+})
+// 省份/城市
+let sfOptions = ref([]);
+let csOptions = ref([]);
 const sfChange = (e: string) => {
   // if (e) {
   //   csOptions.value = (csOptionsAll as any)[e];
@@ -195,13 +212,6 @@ const scdqGridOptions = reactive({
   editConfig: {
     trigger: "click",
     mode: "cell",
-    // 第一列禁止编辑
-    // beforeEditMethod({ columnIndex }: any) {
-    //   if (columnIndex === 1) {
-    //     return false;
-    //   }
-    //   return true;
-    // },
   },
   // 序号 城市 短枪 长枪 高重 冷兵
   columns: [
@@ -217,26 +227,18 @@ const scdqGridOptions = reactive({
     // { id: 10002, cs: "Test2", dq: "T2", cq: "Test", gz: "Women", lb: 22 },
   ],
 });
-// const editDisabledEvent = () => {
-//   ElMessage.error("该字段禁止编辑");
-// };
 
 // =================== 时间计划区 vxe表格 ===================
+const xGrid = ref<VxeGridInstance>()
 const sjjhqGridOptions = reactive({
   border: true,
   showOverflow: true,
+  keepSource: true,
   editConfig: {
-    trigger: "click",
-    mode: "cell",
-    // 第一列禁止编辑
-    // beforeEditMethod({ columnIndex }: any) {
-    //   if (columnIndex === 1) {
-    //     return false;
-    //   }
-    //   return true;
-    // },
+    trigger: 'click',
+    mode: 'row',
+    showStatus: true
   },
-  // 序号 城市 到达时间 工作对接 设备运输 调试开展 处置结束时间 设备收尾 计划停留时间 处置时间（天）
   columns: [
     { type: "seq", title: "序号", width: 60, fixed: "left", align: "center" },
     { field: "cs", title: "城市", width: 100, fixed: "left" },
@@ -248,9 +250,39 @@ const sjjhqGridOptions = reactive({
     { field: "sbsw", title: "设备收尾", width: 150, editRender: {}, slots: { edit: "sbsw_edit" } },
     { field: "jhtlsj", title: "计划停留时间", width: 280, editRender: {}, slots: { edit: "jhtlsj_edit" } },
     { field: "czsj", title: "处置时间（天）", width: 150, editRender: {}, slots: { edit: "czsj_edit" } },
+    // { field: "ddsj", title: "到达时间", width: 150, editRender: { name: '$input', props: { type: 'date', placeholder: '请输入' } } },
+    // { field: "gzdj", title: "工作对接", width: 150, editRender: { name: '$input', props: { type: 'date', placeholder: '请输入' } } },
+    // { field: "sbys", title: "设备运输", width: 150, editRender: { name: '$input', props: { type: 'date', placeholder: '请输入' } } },
+    // { field: "tskz", title: "调试开展", width: 150, editRender: { name: '$input', props: { type: 'date', placeholder: '请输入' } } },
+    // { field: "czjssj", title: "处置结束时间", width: 150, editRender: { name: '$input', props: { type: 'date', placeholder: '请输入' } } },
+    // { field: "sbsw", title: "设备收尾", width: 150, editRender: { name: '$input', props: { type: 'date', placeholder: '请输入' } } },
+    // { field: "jhtlsj", title: "计划停留时间", width: 280, editRender: { name: '$input', props: { type: 'date', placeholder: '请输入' } } },
+    // { field: "czsj", title: "处置时间（天）", width: 150, editRender: { name: '$input', props: { type: 'float', digits: 2, placeholder: '请输入' } } },
   ],
-  data: [],
+  editRules: {
+    ddsj: [{ required: true, message: '必填项' }],
+    gzdj: [{ required: true, message: '必填项' }],
+    sbys: [{ required: true, message: '必填项' }],
+    tskz: [{ required: true, message: '必填项' }],
+    czjssj: [{ required: true, message: '必填项' }],
+    sbsw: [{ required: true, message: '必填项' }],
+    jhtlsj: [{ required: true, message: '必填项' }],
+    czsj: [{ required: true, message: '必填项' }],
+  },
 });
+
+// 提交/提交验证
+const ruleFormRef = ref<FormInstance>()
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid: any, fields: any) => {
+    if (valid) {
+      saveHandle();
+    } else {
+      ElMessage.warning('请填写必填项');
+    }
+  })
+}
 
 // =================== 保存 ===================
 const saveHandle = () => {
@@ -261,22 +293,22 @@ const saveHandle = () => {
   scdqGridOptions.data.forEach((item: any, index: number) => {
     arr.push({
       // public
-      scsf: (scdqGridOptions.data as any)[index].sf,
-      sccs: (scdqGridOptions.data as any)[index].cs,
+      scsf: scdqGridOptions.data[index].sf,
+      sccs: scdqGridOptions.data[index].cs,
       // table 1
-      dq: (scdqGridOptions.data as any)[index].dq,
-      cq: (scdqGridOptions.data as any)[index].cq,
-      gz: (scdqGridOptions.data as any)[index].gz,
-      lb: (scdqGridOptions.data as any)[index].lb,
+      dq: scdqGridOptions.data[index].dq,
+      cq: scdqGridOptions.data[index].cq,
+      gz: scdqGridOptions.data[index].gz,
+      lb: scdqGridOptions.data[index].lb,
       // table 2
-      ddsj: (sjjhqGridOptions.data as any)[index].ddsj,
-      gzdj: (sjjhqGridOptions.data as any)[index].gzdj,
-      sbys: (sjjhqGridOptions.data as any)[index].sbys,
-      tskz: (sjjhqGridOptions.data as any)[index].tskz,
-      czjssj: (sjjhqGridOptions.data as any)[index].czjssj,
-      sbsw: (sjjhqGridOptions.data as any)[index].sbsw,
-      jhtlsj: (sjjhqGridOptions.data as any)[index].jhtlsj.join("至"),
-      czsj: Number((sjjhqGridOptions.data as any)[index].czsj),
+      ddsj: sjjhqGridOptions.data[index].ddsj,
+      gzdj: sjjhqGridOptions.data[index].gzdj,
+      sbys: sjjhqGridOptions.data[index].sbys,
+      tskz: sjjhqGridOptions.data[index].tskz,
+      czjssj: sjjhqGridOptions.data[index].czjssj,
+      sbsw: sjjhqGridOptions.data[index].sbsw,
+      jhtlsj: sjjhqGridOptions.data[index].jhtlsj.join("至"),
+      czsj: Number(sjjhqGridOptions.data[index].czsj),
     });
   });
 
@@ -284,6 +316,8 @@ const saveHandle = () => {
     // 新增
     addScjhgl({
       jhmc: formInline.jhmc,
+      sf: formInline.sf,
+      cs: formInline.cs.join(','),
       scjhglmxVoList: arr,
     }).then((res: any) => {
       if (res.code === 200) {
@@ -298,6 +332,8 @@ const saveHandle = () => {
     updateScjhgl({
       id: props.curRow.id,
       jhmc: formInline.jhmc,
+      sf: formInline.sf,
+      cs: formInline.cs.join(','),
       scjhglmxVoList: arr,
     }).then((res: any) => {
       if (res.code === 200) {

@@ -79,11 +79,11 @@
         <div class="chart-left">
           <div class="bar">
             <span class="title">今日目标：</span>
-            <span class="big-test">{{ addNumber(2000) }}把</span>
+            <span class="big-test">2000<i>把</i></span>
           </div>
           <div class="bar">
             <span class="title">已完成：</span>
-            <span class="big-test">1600把</span>
+            <span class="big-test">1600<i>把</i></span>
           </div>
           <div class="bar">
             <span class="title">当前速率：</span>
@@ -411,7 +411,7 @@ const addNumber = (val: number, time = 1000) => {
             background-color: $gSuccess;
           }
           b {
-            font-size: 12px;
+            font-size: 14px;
             color: $gTitleColor;
           }
           span {
@@ -466,7 +466,7 @@ const addNumber = (val: number, time = 1000) => {
           justify-content: center;
           .title {
             color: $gTitleColor;
-            font-size: 12px;
+            font-size: 14px;
           }
           span {
             flex: 1;
@@ -478,8 +478,14 @@ const addNumber = (val: number, time = 1000) => {
             }
           }
           .big-test {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: bold;
+            i{
+              font-style: normal;
+              font-size: 14px;
+              margin-left: 5px;
+              color: $gGrayColor;
+            }
           }
           .light {
             color: $gPrimary;
@@ -515,7 +521,7 @@ const addNumber = (val: number, time = 1000) => {
           background-color: $gBodyBg;
           width: 150px;
           height: 150px;
-          transform: scale(1.6, 1.6);
+          transform: scale(2, 2);
           // box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.4);
           display: flex;
           justify-content: center;
@@ -624,6 +630,20 @@ const addNumber = (val: number, time = 1000) => {
             justify-content: center;
             align-items: center;
             text-align: center;
+            dl{
+              width: 70%;
+              height: 100%;
+              background: url(~@/assets/images/home_num_bg.png) no-repeat center bottom;
+              background-size: 100% auto;
+              display: flex;
+              flex-direction: column;
+              dt{
+                flex: 1;
+              }
+              dd{
+                flex: 2;
+              }
+            }
           }
         }
       }

@@ -70,6 +70,14 @@ html.dark {
 
   // table
   // --el-table-header-bg-color: red;
+  
+  // --el-fill-color-darker: #424243;
+  // --el-fill-color-dark: #39393A;
+  --el-fill-color: #0f1823;
+  // --el-fill-color-light: #262727;
+  // --el-fill-color-lighter: #1D1D1D;
+  // --el-fill-color-extra-light: #191919;
+  // --el-fill-color-blank: transparent;
 }
 
 
@@ -108,3 +116,5 @@ html.dark {
 // --el-input-hover-border-color: var(--el-border-color-hover);
 // --el-input-clear-hover-color: var(--el-text-color-secondary);
 // --el-input-focus-border-color: var(--el-color-primary);
+
+// var(--el-fill-color)

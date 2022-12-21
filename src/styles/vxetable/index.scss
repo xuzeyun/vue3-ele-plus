@@ -1,6 +1,14 @@
 $vxe-font-size: 14px;
 $vxe-font-color: #666;
-$vxe-primary-color: #409eff;
+
+$vxe-primary-color: #1d6eb8;
+$vxe-success-color: #48b197;
+$vxe-info-color: #3f6689;
+$vxe-warning-color: #e2a227;
+$vxe-danger-color: #ea5937;
+$vxe-disabled-color: #BFBFBF;
+$vxe-primary-disabled-color: #c0c4cc;
+
 $vxe-table-font-color: red;
 $vxe-table-border-color: #1b4e7f;
 $vxe-table-border-radius: 4px;
@@ -9,3 +17,7 @@ $vxe-table-header-background-color: #143155;
 $vxe-table-body-background-color: #0f1823;
 
 @import 'vxe-table/styles/index.scss';
+
+.vxe-header--column .vxe-cell--required-icon{
+  color: #ea5937;
+}

@@ -42,7 +42,7 @@
         :on-success="onSuccess"
         :on-error="onError"
       >
-        <el-button type="primary" :icon="Download">导入</el-button>
+        <el-button type="primary" :icon="Upload">导入</el-button>
       </el-upload>
     </div>
     <div class="g-table">
@@ -55,13 +55,13 @@
         >
           <!-- <el-table-column type="selection" width="55" align="center"/> -->
           <el-table-column type="index" label="序号" width="60" align="center" />
-          <el-table-column prop="jhm" label="军种" show-overflow-tooltip />
-          <el-table-column prop="gjcs" label="片区" show-overflow-tooltip />
-          <el-table-column prop="gjdw" label="省份" show-overflow-tooltip />
-          <el-table-column prop="jz" label="城市" show-overflow-tooltip />
-          <el-table-column prop="zydw" label="移交单位" show-overflow-tooltip />
-          <el-table-column prop="gjsj" label="名称" show-overflow-tooltip />
-          <el-table-column prop="scsj" label="枪号" show-overflow-tooltip />
+          <el-table-column prop="jz" label="军种" show-overflow-tooltip />
+          <el-table-column prop="pq" label="片区" show-overflow-tooltip />
+          <el-table-column prop="sf" label="省份" show-overflow-tooltip />
+          <el-table-column prop="cs" label="城市" show-overflow-tooltip />
+          <el-table-column prop="yjdw" label="移交单位" show-overflow-tooltip />
+          <el-table-column prop="mc" label="名称" show-overflow-tooltip />
+          <el-table-column prop="qh" label="枪号" show-overflow-tooltip />
         </el-table>
       </div>
       <div class="g-table-pafer">
@@ -82,7 +82,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Edit, CirclePlus, Download, Search, Refresh } from "@element-plus/icons-vue";
+import { Edit, CirclePlus, Download, Search, Refresh, Upload } from "@element-plus/icons-vue";
 import { ElTable } from 'element-plus'
 import { reactive, ref, onMounted } from "vue";
 import { queryJssjglListPage } from "@/api/jsqdgcgl";

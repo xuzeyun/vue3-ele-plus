@@ -102,7 +102,7 @@ ol {
 .g-query {
   border: $gBorderColor 1px solid;
   background-color: $gBodyBg2;
-  padding: 10px 20px 3px;
+  padding: 10px 20px 2px;
   h3 {
     position: absolute;
     margin-top: -18px;
@@ -114,7 +114,7 @@ ol {
   }
   .el-form {
     .el-form-item {
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .el-form-item:last-child {
       margin-right: 0;
@@ -131,6 +131,24 @@ ol {
 }
 // 按钮组区域
 .g-btns {
+  .g-info{
+    float: right;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    dl{
+      display: flex;
+      font-size: 16px;
+      dt{
+        color: $gTitleColor;
+      }
+      dd{
+        color: $gPrimary;
+        font-weight: bold;
+      }
+    }
+  }
 }
 // 表格加分页区域
 .g-table {
@@ -154,6 +172,13 @@ ol {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+// flex 自定义内容居中块
+.g-flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 // 四角装饰模块
