@@ -239,3 +239,9 @@ ol {
   display: flex;
   margin-right: 5px;
 }
+
+.is-circle{
+  .g-button-svg{
+    margin-right: 0;
+  }
+}

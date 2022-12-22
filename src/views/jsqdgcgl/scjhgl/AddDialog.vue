@@ -269,6 +269,7 @@ const sjjhqGridOptions = reactive({
     jhtlsj: [{ required: true, message: '必填项' }],
     czsj: [{ required: true, message: '必填项' }],
   },
+  data: [],
 });
 
 // 提交/提交验证
@@ -309,8 +310,11 @@ const saveHandle = () => {
       sbsw: sjjhqGridOptions.data[index].sbsw,
       jhtlsj: sjjhqGridOptions.data[index].jhtlsj.join("至"),
       czsj: Number(sjjhqGridOptions.data[index].czsj),
+      id: sjjhqGridOptions.data[index].id || '',
+      scjhglid: props.curRow.id || '',
     });
   });
+  
 
   if (props.dialogType === 1) {
     // 新增

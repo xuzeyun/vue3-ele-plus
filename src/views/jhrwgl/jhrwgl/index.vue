@@ -64,12 +64,14 @@
       </div>
     </div>
   </div>
+  <AddDialog ref="addDialogRef" v-if="addDialogShow" :curRow="curRow" :dialogType="dialogType" @close="addDialogClose"></AddDialog>
 </template>
 
 <script lang="ts" setup>
 import { Edit, CirclePlus, Download, Search, Refresh } from "@element-plus/icons-vue";
 import { ElTable } from 'element-plus'
 import { reactive, ref } from "vue";
+import AddDialog from "./AddDialog.vue";
 
 // ================== 表格查询 ==================
 const formInline = reactive({
@@ -88,7 +90,8 @@ const onReset = () => {
 // ================== 按钮组 ==================
 // 新增
 const addHandle = () => {
-  console.log("click");
+  dialogType.value = 1;
+  addDialogShow.value = true;
 };
 // 导出
 const exportHandle = () => {
@@ -125,4 +128,14 @@ const handleSizeChange = (val: number) => {
 const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`);
 };
+
+// 弹窗
+const addDialogRef = ref(null);
+const addDialogShow = ref(false);
+let dialogType = ref(1);
+const addDialogClose = () => {
+  addDialogShow.value = false;
+  // getList();
+};
+const curRow = ref({});
 </script>

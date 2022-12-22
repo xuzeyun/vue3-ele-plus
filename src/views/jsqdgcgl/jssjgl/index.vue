@@ -34,13 +34,13 @@
       </el-form>
     </div>
     <div class="g-btns">
-      <!-- <el-button type="primary" :icon="Download" @click="importHandle">导入</el-button> -->
       <el-upload
         class="upload-demo"
         :show-file-list="false"
-        action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+        action="/api/jssjgl/importJssjgl"
         :on-success="onSuccess"
         :on-error="onError"
+        accept=".xlsx, .xls"
       >
         <el-button type="primary" :icon="Upload">导入</el-button>
       </el-upload>
@@ -86,10 +86,11 @@ import { Edit, CirclePlus, Download, Search, Refresh, Upload } from "@element-pl
 import { ElTable } from 'element-plus'
 import { reactive, ref, onMounted } from "vue";
 import { queryJssjglListPage } from "@/api/jsqdgcgl";
+import { getUrl } from "@/api/public";
 import type { UploadProps, UploadUserFile } from 'element-plus'
 
 onMounted(() => {
-  getList();
+  getList();  
 });
 
 const getList = () => {
