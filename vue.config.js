@@ -12,6 +12,11 @@ module.exports = {
         pathRewrite: { "^/api": "/api" },
         secure: false,
       },
+      // "/new": {
+      //   target: "http://192.168.1.123:8082", // 后端地址
+      //   pathRewrite: { "^/new": "/api" },
+      //   secure: false,
+      // },
     },
   },
   configureWebpack: {
