@@ -4,30 +4,30 @@
       <el-form :inline="true" ref="formInlineRef" :model="formInline" class="demo-form-inline">
         <el-form-item label="军种" prop="jz">
           <el-select v-model="formInline.jz" placeholder="请选择">
-            <el-option label="海军" value="sanxi" />
-            <el-option label="陆军" value="shanghai" />
-            <el-option label="空军" value="beijing" />
+            <el-option label="海军" value="海军" />
+            <el-option label="陆军" value="陆军" />
+            <el-option label="空军" value="空军" />
           </el-select>
         </el-form-item>
         <el-form-item label="省份" prop="sf">
           <el-select v-model="formInline.sf" placeholder="请选择">
-            <el-option label="河北" value="hebei" />
-            <el-option label="浙江" value="hebei" />
-            <el-option label="河南" value="henan" />
+            <el-option label="河北" value="河北" />
+            <el-option label="浙江" value="浙江" />
+            <el-option label="河南" value="河南" />
           </el-select>
         </el-form-item>
         <el-form-item label="城市" prop="cs">
           <el-select v-model="formInline.cs" placeholder="请选择">
-            <el-option label="北京" value="shanghai" />
-            <el-option label="上海" value="beijing" />
-            <el-option label="杭州" value="beijing" />
-            <el-option label="秦皇岛" value="beijing" />
+            <el-option label="北京" value="北京" />
+            <el-option label="上海" value="上海" />
+            <el-option label="杭州" value="杭州" />
+            <el-option label="秦皇岛" value="秦皇岛" />
           </el-select>
         </el-form-item>
         <el-form-item label="移交单位" prop="yjdw">
           <el-select v-model="formInline.yjdw" placeholder="请选择">
-            <el-option label="单位1" value="shanghai" />
-            <el-option label="单位2" value="beijing" />
+            <el-option label="单位1" value="单位1" />
+            <el-option label="单位2" value="单位2" />
           </el-select>
         </el-form-item>
         <el-form-item class="g-query-btns">
