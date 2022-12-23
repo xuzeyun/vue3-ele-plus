@@ -1,21 +1,23 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import links from "@/data/links";
 
-// 循环方式引入路由
+// 递归方式引入路由
 const getRulesRouterData: any = [];
 const madeRouters = (links: any) => {
-  links.forEach((item: any, index: number) => {
+  for (const item of links) {
     getRulesRouterData.push({
-      path: item.path,
-      name: item.path,
-      component: () => import(/* webpackChunkName: "czgl" */ "@/views/" + item.component),
+      path: item.rPath,
+      name: item.rName,
+      component: () => import(/* webpackChunkName: "no setting" */ '@/views/' + item.rComponent),
     });
     if (item.children) {
       madeRouters(item.children);
     }
-  });
+  }
 };
 madeRouters(links);
+
+console.log(getRulesRouterData, 'getRulesRouterData');
 
 const routes: Array<RouteRecordRaw> = [
   {

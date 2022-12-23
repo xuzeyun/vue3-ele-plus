@@ -10,7 +10,7 @@
       </template>
       <MenuTree :routerList="item.children"></MenuTree>
     </el-sub-menu>
-    <el-menu-item v-else :index="item.menuId" :key="'c' + item.menuId" @click="goToPage(item.name, item.path)">
+    <el-menu-item v-else :index="item.menuId" :key="'c' + item.menuId" @click="goToPage(item.rName, item.rPath)">
       <el-icon v-if="item.icon">
         <component :is="item.icon"></component>
       </el-icon>
@@ -27,7 +27,6 @@ const props = defineProps<{
 }>();
 const router = useRouter();
 const goToPage = (name: string, path: string) => {
-  console.log(name, path, "路由跳转");
   router.push(path);
 };
 </script>

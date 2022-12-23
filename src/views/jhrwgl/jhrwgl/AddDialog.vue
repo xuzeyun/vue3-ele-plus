@@ -76,8 +76,8 @@
               <h4>已选择单位</h4>
               <div class="dw-list">
                 <ul>
-                  <li>单位1</li>
-                  <li>单位2</li>
+                  <li><el-icon class="dw-icon-wrap"><OfficeBuilding class="dw-icon" /></el-icon>单位1</li>
+                  <li><el-icon class="dw-icon-wrap"><OfficeBuilding class="dw-icon" /></el-icon>单位2</li>
                 </ul>
               </div>
             </div>
@@ -98,7 +98,7 @@
 </template>
 
 <script lang="ts" setup>
-import { CircleCheck, CircleClose } from "@element-plus/icons-vue";
+import { CircleCheck, CircleClose, OfficeBuilding } from "@element-plus/icons-vue";
 import { reactive, ref, defineProps, defineExpose, onMounted, defineEmits } from "vue";
 import { ElMessage } from "element-plus";
 import Save from "@/assets/svg/save.svg";
@@ -260,6 +260,14 @@ const handleCurrentChange = (val: number) => {
         box-sizing: border-box;
         li{
           line-height: 26px;
+          .dw-icon-wrap{
+            vertical-align: middle;
+            margin-right: 5px;
+            font-size: 20px;
+            .dw-icon{
+              color: #1d6eb8;
+            }
+          }
         }
       }
     }
