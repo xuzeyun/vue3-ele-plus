@@ -16,7 +16,7 @@
             <el-input v-model="row.gz" placeholder="请输入" />
           </template>
           <template #lbp_edit="{ row }">
-            <el-input v-model="row.lbp" placeholder="请输入" />
+            <el-input v-model="row.lb" placeholder="请输入" />
           </template>
           <template #operate="{ row }">
             <el-button type="primary" size="small" circle @click="saveHandle(row)" title="保存" ><span class="g-button-svg"><img src="@/assets/svg/save.svg" /></span></el-button>
@@ -45,6 +45,10 @@
 import { reactive, ref, defineProps, defineExpose, onMounted, defineEmits } from "vue";
 import { ElMessage } from "element-plus";
 import { VxeGridInstance } from 'vxe-table'
+import { addCnclpzgl, deleteCnclpzgl, queryCnclpzglList, queryCnclpzglListPage, updateCnclpzgl } from "@/api/pzgl";
+
+
+
 
 const xGrid = ref<VxeGridInstance>()
 const mainGridOptions = reactive({
@@ -62,27 +66,44 @@ const mainGridOptions = reactive({
     { field: "dq", title: "短枪（天）", editRender: {}, slots: { edit: "dq_edit" } },
     { field: "cq", title: "长枪（天）", editRender: {}, slots: { edit: "cq_edit" } },
     { field: "gz", title: "高重（天）", editRender: {}, slots: { edit: "gz_edit" } },
-    { field: "lbp", title: "冷兵配（天）", editRender: {}, slots: { edit: "lbp_edit" } },
+    { field: "lb", title: "冷兵配（天）", editRender: {}, slots: { edit: "lbp_edit" } },
     { field: "czjssj", title: "操作", width: 150, slots: { default: 'operate' }, align: "center" },
   ],
   editRules: {
     // dq: [{ required: true, message: '必填项' }],
     // cq: [{ required: true, message: '必填项' }],
     // gz: [{ required: true, message: '必填项' }],
-    // lbp: [{ required: true, message: '必填项' }],
+    // lb: [{ required: true, message: '必填项' }],
   },
-  data: [
-    {sbmc: '设备1', dq: '1', cq: '2', gz: '2', lbp: '8'},
-    {sbmc: '设备2', dq: '1', cq: '2', gz: '2', lbp: '8'},
-    {sbmc: '设备3', dq: '1', cq: '2', gz: '2', lbp: '8'},
-    {sbmc: '设备4', dq: '1', cq: '2', gz: '2', lbp: '8'},
-    {sbmc: '设备5', dq: '1', cq: '2', gz: '2', lbp: '8'},
-  ],
+  data: [],
 });
 
+
+// ================== 表格查询 ==================
+onMounted(() => {
+  getList();
+});
+const formInline = reactive({
+  sf: "",
+  cs: "",
+});
+
+const getList = () => {
+  queryCnclpzglList({}).then((res: any) => {
+    mainGridOptions.data = res.result;
+  });
+};
+
 // 保存
-const saveHandle = () => {
-  ElMessage.success('保存方法');
+const saveHandle = (row: any) => {
+  updateCnclpzgl(row).then((res: any) => {
+    if (res.code === 200) {
+      ElMessage.success(res.msg);
+      getList();
+    } else {
+      ElMessage.error(res.msg);
+    }
+  })
 };
 
 // ================== 分页 ==================

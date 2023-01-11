@@ -1,13 +1,13 @@
 <template>
   <div class="g-flex-col">
     <div class="g-query">
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="清点时间">
+      <el-form ref="formInlineRef" :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="清点时间" prop="qdsj">
           <el-date-picker v-model="formInline.qdsj" type="date" format="YYYY-MM-DD" value-format="YYYY-MM-DD" placeholder="选择时间" />
         </el-form-item>
         <el-form-item class="g-query-btns">
           <el-button type="primary" :icon="Search" @click="onSubmit">查询</el-button>
-          <el-button type="info" :icon="Refresh" @click="onReset">重置</el-button>
+          <el-button type="info" :icon="Refresh" @click="onReset(formInlineRef)">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -26,7 +26,11 @@
           <el-table-column prop="lx" label="类型" show-overflow-tooltip />
           <el-table-column prop="czlx" label="处置类型" show-overflow-tooltip />
           <el-table-column prop="qdsj" label="清点时间" show-overflow-tooltip />
-          <el-table-column prop="tp" label="图片" show-overflow-tooltip />
+          <el-table-column prop="tp" label="图片" show-overflow-tooltip>
+            <template #default="scope">
+              <img :src="scope.row.tp" alt="">
+            </template>
+          </el-table-column>
           <el-table-column prop="zt" label="状态" show-overflow-tooltip />
         </el-table>
       </div>
@@ -34,7 +38,7 @@
         <el-pagination
           background
           small
-          v-model:current-page="pager.pageNum"
+          v-model:current-page="pager.pageCurrent"
           v-model:page-size="pager.pageSize"
           :page-sizes="[20, 50, 100, 200]"
           layout="total, sizes, prev, pager, next, jumper"
@@ -52,19 +56,24 @@ import { Edit, CirclePlus, Download, Search, Refresh } from "@element-plus/icons
 import { ElTable } from "element-plus";
 import { reactive, ref, onMounted } from "vue";
 import { queryQdwzglListPage } from "@/api/jsqdgcgl";
-import type { UploadProps, UploadUserFile } from "element-plus";
+import type { UploadProps, UploadUserFile, FormInstance } from "element-plus";
+// import type { UploadProps, UploadUserFile, UploadInstance, UploadRawFile, FormInstance } from 'element-plus'
 
 onMounted(() => {
-  getList();
+  getList(1);
 });
 
-const getList = () => {
+const getList = (flag?: number) => {
+  if(flag === 1){
+    pager.pageCurrent = 1;
+  }
   queryQdwzglListPage({}).then((res) => {
     tableData.value = res.result.records;
   });
 };
 
 // ================== 表格查询 ==================
+const formInlineRef = ref()
 const formInline = reactive({
   qdsj: "",
 });
@@ -74,10 +83,11 @@ const onSubmit = () => {
   getList();
 };
 // 重置
-const onReset = () => {
-  console.log("click");
-};
-
+const onReset = (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  formEl.resetFields();
+  getList(1);
+}
 // ================== 按钮组 ==================
 
 // ================== 表格 ==================
@@ -92,7 +102,7 @@ let tableData = ref([]);
 
 // ================== 分页 ==================
 const pager = reactive({
-  pageNum: 1,
+  pageCurrent: 1,
   pageSize: 20,
   total: 0,
 });

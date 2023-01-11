@@ -5,7 +5,6 @@
         <el-form
           :model="formInline"
           class="demo-form-inline"
-          :disabled="dialogType === 2"
           label-width="70"
         >
           <el-form-item label="单位名称">
@@ -44,7 +43,7 @@
 
 <script lang="ts" setup>
 import { CircleCheck, CircleClose } from "@element-plus/icons-vue";
-import { reactive, ref, defineProps, defineExpose, onMounted, defineEmits } from "vue";
+import { reactive, ref, defineProps, defineExpose, onMounted, defineEmits, nextTick } from "vue";
 import { ElMessage } from "element-plus";
 import Save from "@/assets/svg/save.svg";
 // 省份城市数据
@@ -52,7 +51,8 @@ import Save from "@/assets/svg/save.svg";
 // import csOptionsAll from "@/utils/china_regions/city";
 
 import { getSfList, getCsList } from "@/api/zone";
-import { addScjhgl, updateScjhgl, queryJssjglNumByCity, getScjhglDtoById } from "@/api/jsqdgcgl";
+// import { addScjhgl, updateScjhgl, queryJssjglNumByCity, getScjhglDtoById } from "@/api/jsqdgcgl";
+import { addDwgl, updateDwgl } from "@/api/dwgl";
 import { forEach } from "lodash";
 
 const props = defineProps<{
@@ -71,21 +71,11 @@ onMounted(() => {
 
 // 修改 数据获取
 const getUpdateInfo = () => {
-  // getScjhglDtoById({
-  //   id: props.curRow.id,
-  // }).then((res) => {
-  //   formInline.jhmc = res.result.jhmc;
-  //   // formInline.sf = res.result.scsf;
-  //   // formInline.cs = res.result.sccs.split(',');
-  //   let arr = [];
-  //   arr = res.result.scjhglmxList;
-  //   arr.forEach((item) => {
-  //     item.cs = item.sccs;
-  //     item.jhtlsj = item.jhtlsj.split('至');
-  //   });
-  //   scdqGridOptions.data = arr;
-  //   sjjhqGridOptions.data = arr;
-  // });
+  for (const key in formInline) {
+    if (Object.prototype.hasOwnProperty.call(formInline, key)) {
+      formInline[key] = props.curRow[key];
+    }
+  }
 };
 
 // 关闭窗口
@@ -106,7 +96,7 @@ const getCsData = () => {
     csOptions.value = res.result || [];
   });
 };
-const formInline = reactive({
+let formInline = reactive({
   dwmc: "",
   sf: "",
   cs: "",
@@ -128,33 +118,32 @@ const csChange = (e: string) => {
 const saveHandle = () => {
   if (props.dialogType === 1) {
     // 新增
-    // addScjhgl({
-    //   jhmc: formInline.jhmc,
-    //   scjhglmxVoList: arr,
-    // }).then((res) => {
-    //   console.log(res);
-    //   if (res.code === 200) {
-    //     ElMessage.success(res.msg);
-    //     close();
-    //   } else {
-    //     ElMessage.error(res.msg);
-    //   }
-    // });
+    addDwgl({
+      ...formInline
+    }).then((res) => {
+      console.log(res);
+      if (res.code === 200) {
+        ElMessage.success(res.msg);
+        close();
+        
+      } else {
+        ElMessage.error(res.msg);
+      }
+    });
   } else {
     // 修改
-    // updateScjhgl({
-    //   id: props.curRow.id,
-    //   jhmc: formInline.jhmc,
-    //   scjhglmxVoList: arr,
-    // }).then((res) => {
-    //   console.log(res);
-    //   if (res.code === 200) {
-    //     ElMessage.success(res.msg);
-    //     close();
-    //   } else {
-    //     ElMessage.error(res.msg);
-    //   }
-    // });
+    updateDwgl({
+      id: props.curRow.id,
+      ...formInline
+    }).then((res) => {
+      console.log(res);
+      if (res.code === 200) {
+        ElMessage.success(res.msg);
+        close();
+      } else {
+        ElMessage.error(res.msg);
+      }
+    });
   }
 };
 

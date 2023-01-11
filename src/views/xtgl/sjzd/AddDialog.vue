@@ -1,17 +1,22 @@
 <template>
-  <el-dialog v-model="dialogVisible" :title="(dialogType === 1 ? '新增' : '修改') + '区域'" width="30%" destroy-on-close draggable @close="close">
+  <el-dialog v-model="dialogVisible" :title="(dialogType === 1 ? '新增' : '修改') + '字典数据'" width="26%" destroy-on-close draggable @close="close">
     <div class="g-dialog-md">
       <div class="g-box">
         <el-form
           :model="formInline"
           class="demo-form-inline"
-          label-width="70"
+          label-width="100"
         >
-          <el-form-item label="编号">
-            <el-input v-model="formInline.bh" placeholder="请输入"></el-input>
+          <el-form-item label="字典类型名称">
+            <el-input v-model="formInline.name" placeholder="请输入"></el-input>
           </el-form-item>
-          <el-form-item label="名称">
-            <el-input v-model="formInline.mc" placeholder="请输入"></el-input>
+          <el-form-item label="字典类型代码">
+            <el-input v-model="formInline.code" placeholder="请输入"></el-input>
+          </el-form-item>
+          <el-form-item label="是否开启">
+            <span class="el-switch-left">关闭</span>
+            <el-switch v-model="formInline.status" />
+            <span class="el-switch-right">开启</span>
           </el-form-item>
         </el-form>
       </div>
@@ -30,15 +35,11 @@
 
 <script lang="ts" setup>
 import { CircleCheck, CircleClose } from "@element-plus/icons-vue";
-import { reactive, ref, defineProps, defineExpose, onMounted, defineEmits } from "vue";
+import { reactive, ref, defineProps, defineExpose, onMounted, defineEmits, nextTick } from "vue";
 import { ElMessage } from "element-plus";
 import Save from "@/assets/svg/save.svg";
-// 省份城市数据
-// import sfOptions from "@/utils/china_regions/province";
-// import csOptionsAll from "@/utils/china_regions/city";
 
-import { getSfList, getCsList } from "@/api/zone";
-import { addQygl, updateQygl } from "@/api/qygl";
+import { addZdlxgl, updateZdlxgl } from "@/api/xtgl";
 import { forEach } from "lodash";
 
 const props = defineProps<{
@@ -47,8 +48,6 @@ const props = defineProps<{
 }>();
 
 onMounted(() => {
-  getSfData();
-  getCsData();
   // 修改状态下 获取信息
   if (props.dialogType === 2) {
     getUpdateInfo();
@@ -71,39 +70,24 @@ const close = () => {
 };
 
 // =================== 表单 ===================
-// 获取省市数据
-const getSfData = () => {
-  getSfList({}).then((res: any) => {
-    sfOptions.value = res.result || [];
-  });
-};
-const getCsData = () => {
-  getCsList({}).then((res: any) => {
-    csOptions.value = res.result || [];
-  });
-};
-const formInline = reactive({
-  bh: "",
-  mc: "",
+let formInline = reactive({
+  name: "",
+  code: "",
+  status: true,
 });
-let sfOptions = ref([]);
-let csOptions: any = ref([]);
-const sfChange = (e: string) => {
-  // if (e) {
-  //   csOptions.value = (csOptionsAll as any)[e];
-  // }
-};
-const csChange = (e: string) => {
-  // getScdwData();
-};
 
 // =================== 保存 ===================
 const saveHandle = () => {
+  let data = {
+    name: formInline.name,
+    code: formInline.code,
+    status: formInline.status ? '1' : '0',
+  }
   if (props.dialogType === 1) {
     // 新增
-    addQygl({
-      ...formInline
-    }).then((res) => {
+    addZdlxgl({
+      ...data
+    }).then((res: any) => {
       console.log(res);
       if (res.code === 200) {
         ElMessage.success(res.msg);
@@ -114,10 +98,10 @@ const saveHandle = () => {
     });
   } else {
     // 修改
-    updateQygl({
+    updateZdlxgl({
       id: props.curRow.id,
-      ...formInline
-    }).then((res) => {
+      ...data
+    }).then((res: any) => {
       console.log(res);
       if (res.code === 200) {
         ElMessage.success(res.msg);
@@ -134,3 +118,12 @@ const dialogVisible = ref(true);
 //   dialogVisible,
 // });
 </script>
+
+<style lang="scss" scoped>
+.el-switch-left{
+  margin-right: 10px;
+}
+.el-switch-right{
+  margin-left: 10px;
+}
+</style>

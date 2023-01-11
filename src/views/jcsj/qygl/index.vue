@@ -43,7 +43,7 @@
         <el-pagination
           background
           small
-          v-model:current-page="pager.pageNum"
+          v-model:current-page="pager.pageCurrent"
           v-model:page-size="pager.pageSize"
           :page-sizes="[20, 50, 100, 200]"
           layout="total, sizes, prev, pager, next, jumper"
@@ -62,20 +62,21 @@ import { Edit, CirclePlus, Download, Search, Refresh, Delete } from "@element-pl
 import { ElTable, ElMessage, ElMessageBox } from "element-plus";
 import { reactive, ref, onMounted } from "vue";
 import moment from "moment";
-import { queryScjhglListPage, deleteScjhgl } from "@/api/jsqdgcgl";
+import { deleteQygl, queryQyglList, queryQyglListPage } from "@/api/qygl";
 
 // 弹窗
 import AddDialog from "./AddDialog.vue";
 const addDialogShow = ref(false);
 const addDialogClose = () => {
   addDialogShow.value = false;
+  getList(1);
 };
 
 const curRow = ref({});
 
 // ================== 表格查询 ==================
 onMounted(() => {
-  getList();
+  getList(1);
 });
 const formInline = reactive({
   sf: "",
@@ -90,10 +91,13 @@ const onReset = () => {
   console.log("click");
 };
 
-const getList = () => {
-  // queryScjhglListPage({}).then((res) => {
-  //   tableData.value = res.result.records;
-  // });
+const getList = (flag?: number) => {
+  if(flag === 1){
+    pager.pageCurrent = 1;
+  }
+  queryQyglListPage({}).then((res) => {
+    tableData.value = res.result.records;
+  });
 };
 
 // ================== 按钮组 ==================
@@ -126,7 +130,7 @@ const deleteHandle = (row: any) => {
     type: "warning",
   })
     .then(() => {
-      deleteScjhgl({ id: row.id }).then((res) => {
+      deleteQygl({ id: row.id }).then((res) => {
         if (res.code === 200) {
           ElMessage.success(res.msg);
           getList();
@@ -158,17 +162,11 @@ const handleSelectionChange = (val: any) => {
 //   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
 //   { jhmc: "计划名称a", cq: "122", dq: "222", gz: "33", lb: "44", cjsj: "33"},
 // ];
-let tableData = ref([
-  {bh: '编号1', mc: "名称1"},
-  {bh: '编号2', mc: "名称2"},
-  {bh: '编号3', mc: "名称3"},
-  {bh: '编号4', mc: "名称4"},
-  {bh: '编号5', mc: "名称5"},
-]);
+let tableData = ref([]);
 
 // ================== 分页 ==================
 const pager = reactive({
-  pageNum: 1,
+  pageCurrent: 1,
   pageSize: 20,
   total: 0,
 });

@@ -30,7 +30,7 @@
 import { ElMessage, ElMessageBox } from "element-plus";
 import { reactive, ref, onMounted } from "vue";
 // api
-// import { queryScjhglListPage, deleteScjhgl } from "@/api/jsqdgcgl";
+import { addSjjhpzgl, querySjjhpzglList, updateSjjhpzgl } from "@/api/pzgl";
 
 
 
@@ -39,21 +39,57 @@ onMounted(() => {
   getList();
 });
 const formInline = reactive({
+  id: "",
   gzdjjg: "",
   sbysjg: "",
   tskzjg: "",
   sbswjg: "",
 });
 
-// 重置
+// 保存
 const onSave = () => {
-  console.log("click");
+  ElMessageBox.confirm("确认保存 ？", "警告", {
+    confirmButtonText: "是",
+    cancelButtonText: "否",
+    type: "warning",
+  })
+    .then(() => {
+      if(formInline.id){
+        updateSjjhpzgl(formInline).then((res) => {
+          if (res.code === 200) {
+            ElMessage.success(res.msg);
+            getList();
+          } else {
+            ElMessage.error(res.msg);
+          }
+        });
+      }else{
+        addSjjhpzgl(formInline).then((res) => {
+          if (res.code === 200) {
+            ElMessage.success(res.msg);
+            getList();
+          } else {
+            ElMessage.error(res.msg);
+          }
+        });
+      }
+      
+    })
+    .catch(() => {
+      ElMessage.info("已取消");
+    });
+
 };
 
 const getList = () => {
-  // queryScjhglListPage({}).then((res) => {
-  //   tableData.value = res.result.records;
-  // });
+  querySjjhpzglList({}).then((res: any) => {
+    let data = res.result[0];
+    formInline.id = data.id;
+    formInline.gzdjjg = data.gzdjjg;
+    formInline.sbysjg = data.sbysjg;
+    formInline.tskzjg = data.tskzjg;
+    formInline.sbswjg = data.sbswjg;
+  });
 };
 </script>
 
