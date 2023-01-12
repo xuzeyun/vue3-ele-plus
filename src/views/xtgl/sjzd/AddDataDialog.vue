@@ -82,7 +82,7 @@ const getList = (flag?: number) => {
     pager.pageCurrent = 1;
   }
   queryZdsjglListPage({
-    id: props.curRow.id,
+    typeCode: props.curRow.code,
   }).then((res: any) => {
     res.result.records.forEach((item: any) => {
       item.status = item.status === '1' ? '正常' : '停用';
@@ -152,6 +152,7 @@ const saveRowEvent = async (row: any) => {
     if (!row.id) {
       // 新增
       addZdsjgl({
+        typeCode: props.curRow.code,
         ...data
       }).then((res: any) => {
         console.log(res);
@@ -165,7 +166,8 @@ const saveRowEvent = async (row: any) => {
     } else {
       // 修改
       updateZdsjgl({
-        id: props.curRow.id,
+        id: row.id,
+        typeCode: props.curRow.code,
         ...data
       }).then((res: any) => {
         console.log(res);
