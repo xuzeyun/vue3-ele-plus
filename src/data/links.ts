@@ -89,6 +89,7 @@ export default [
       { menuId: "7-3", name: "角色管理", rName: "xtgl-jsgl", rPath: "/xtgl/jsgl", rComponent: "xtgl/jsgl/index.vue" },
       { menuId: "7-4", name: "权限管理", rName: "xtgl-qxgl", rPath: "/xtgl/qxgl", rComponent: "xtgl/qxgl/index.vue" },
       { menuId: "7-5", name: "数据字典", rName: "xtgl-sjzd", rPath: "/xtgl/sjzd", rComponent: "xtgl/sjzd/index.vue" },
+      { menuId: "7-6", name: "中国地图", rName: "xtgl-map", rPath: "/xtgl/map", rComponent: "xtgl/map/index.vue" },
     ],
   },
 ];
